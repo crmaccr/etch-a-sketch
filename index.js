@@ -1,26 +1,47 @@
-const body = document.body;
-const grid = document.createElement("div");
-grid.style.cssText = `
-display:flex; 
-flex-wrap:wrap;
-gap:2px;
-width:510px;
-margin: auto;`;
-const square = document.createElement("div");
+const container = document.createElement("div");
+container.classList.add("container");
 
-square.style.cssText = "height:30px; width:30px; background-color:blue;";
-for (let i = 1; i <= 16; i++) {
-  for (let j = 1; j <= 16; j++) {
-    grid.appendChild(square.cloneNode());
-  }
+const grid = document.createElement("div");
+grid.classList.add("grid");
+
+const resetButton = document.createElement("button");
+resetButton.classList.add("reset");
+resetButton.textContent = "reset";
+
+container.appendChild(resetButton);
+
+createAndDisplayGrid(16);
+
+function setupListenersForGridCells() {
+  const gridSquares = grid.querySelectorAll("div");
+  gridSquares.forEach(function (grid) {
+    grid.addEventListener("mouseenter", function () {
+      console.log("hovered over me");
+      this.style.backgroundColor = "yellow";
+    });
+  });
 }
 
-const gridSquares = grid.querySelectorAll("div");
-gridSquares.forEach(function (grid) {
-  grid.addEventListener("mouseenter", function () {
-    console.log("hovered over me");
-    this.style.backgroundColor = "yellow";
-  });
+resetButton.addEventListener("click", function () {
+  let newGridSize = 0;
+  do {
+    newGridSize = +prompt("enter new Grid Size (< 100)", "25");
+  } while (newGridSize > 100);
+  createAndDisplayGrid(newGridSize);
 });
 
-body.appendChild(grid);
+function createAndDisplayGrid(size) {
+  const square = document.createElement("div");
+  square.classList.add("square");
+  const squareSize = 600 / size;
+  square.style.cssText = `height:${squareSize}px; width:${squareSize}px;`;
+  grid.innerHTML = "";
+  for (let i = 1; i <= size; i++) {
+    for (let j = 1; j <= size; j++) {
+      grid.appendChild(square.cloneNode());
+    }
+  }
+  setupListenersForGridCells();
+}
+container.appendChild(grid);
+document.body.appendChild(container);
