@@ -27,7 +27,9 @@ resetButton.addEventListener("click", function () {
   do {
     newGridSize = +prompt("enter new Grid Size (< 100)", "25");
   } while (newGridSize > 100);
-  createAndDisplayGrid(newGridSize);
+  if (newGridSize) {
+    createAndDisplayGrid(newGridSize);
+  }
 });
 
 function createAndDisplayGrid(size) {
