@@ -11,6 +11,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 600px;
+  gap: 1px;
 }
 .reset {
   margin-bottom: 10px;
@@ -18,5 +19,5 @@
 
 .square {
   background-color: blue;
-  border: 1px solid red;
+  flex-grow: 1;
 }
